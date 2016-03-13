@@ -18,7 +18,6 @@ class Wolfram(BotPlugin):
 
     @asyncio.coroutine
     def on_message(self, msg):
-
         if hasattr(msg, 'text'):
             m = sendMessage()
             m.chat_id = msg.chat.id
@@ -31,6 +30,8 @@ class Wolfram(BotPlugin):
                     m.text = 'No entiendo la pregunta'
                 yield from self.send_method(m)
 
+        # if True is returned, other plugins will process the
+        # same message. If False is returned, execution will not continue.
         return False
 
     def wolf_query(self, query):
@@ -46,7 +47,7 @@ def wolf_params(query):
     return query[6:]
 
 def pod_repr(pod):
-    'Returns a "line" from the pod, it will be title and text, image...'
+    'Returns a "line" from the pod, it will be title and text...'
     if not pod.text:
         return
     return template.format(title=pod.title, text=pod.text)
