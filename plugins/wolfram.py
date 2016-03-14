@@ -31,7 +31,7 @@ class Wolfram(BotPlugin):
                 if len(response) > 0:
                     m.text = '\n'.join(filter(None, response))
                 else:
-                    m.text = 'No entiendo la pregunta'
+                    m.text = "I don't have a response to that"
                 yield from self.send_method(m)
 
         # if True is returned, other plugins will process the
@@ -40,6 +40,8 @@ class Wolfram(BotPlugin):
 
     def wolf_query(self, query):
         'Executes a query in wolfram alpha'
+        if query == 'ping':
+            return ['pong'] # request by mavega
         res = self.client.query(query)
         parts = []
         for pod in res.pods:
